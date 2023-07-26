@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>User Account</title>
+<link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>	
+
+<div class="py-12">
+    <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <!-- Main Content -->
+            Logged in : <strong>{{session.name}} | <a class="text-red-500" href="{{ url_for('logout') }}"> Logout</a>
+
+            <div class="flex flex-col flex-1 overflow-hidden">
+                <header class="flex justify-between items-center bg-white py-4 px-6 border-b border-gray-200">
+                    <h1 class="text-2xl font-semibold text-gray-800">Google My Business Data Search</h1>
+                    
+                </header>
+                <form method="post" action="{{ url_for('user_dashboard') }}">
+                    <div class="flex space-x-2 px-12 items-center justify-center">
+                        <input type="text" name="search_for" id="search_for" value="" placeholder="Hair Salon in New York" required class="block w-full p-2 border border-gray-300 rounded-md">
+                        <input type="text" name="city_country" id="city_country" value="" placeholder="City or Country" required class="block w-full p-2 border border-gray-300 rounded-md">
+                        <input type="number" name="total" id="total" value="" placeholder="10" required class="block w-full p-2 border border-gray-300 rounded-md">
+                        <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600">Scrape</button>
+                    </div>
+                </form>
+                
+                
+                <main class="flex flex-1 overflow-hidden p-4">
+
+                    <!-- Your main content goes here -->
+                    <div class="w-full p-4 bg-white rounded shadow">
+                        <h2 class="text-xl font-semibold text-gray-800">Latest Scraping Data</h2>
+                      
+                        <!-- Table to display scraping data -->
+                        <div class="mt-4">
+                            <table class="w-full border-collapse table-auto">
+                                <thead>
+                                    <tr class="bg-gray-200">
+                                        <th class="py-2 px-4 font-semibold text-left">Title</th>
+                                        <th class="py-2 px-4 font-semibold text-left">Source</th>
+                                        <th class="py-2 px-4 font-semibold text-left">Status</th>
+                                        <th class="py-2 px-4 font-semibold text-left">Date</th>
+                                        <th class="py-2 px-4 font-semibold text-left">Download</th> <!-- Add this line for the new column -->
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for row in data %}
+                                    <tr>
+                                        <td class="py-2 px-4">{{ row.title }}</td>
+                                        <td class="py-2 px-4">{{ row.source }}</td>
+                                        <td class="py-2 px-4">
+                                            <span class="px-2 py-1 text-white text-sm rounded-full bg-green-600">{{ row.status }}</span>
+                                        </td>
+                                        <td class="py-2 px-4">{{ row.date }}</td>
+                                        <td class="py-2 px-4">
+                                            <a href="{{ url_for('download_csv', id=row.id) }}" class="px-2 py-1 text-white text-sm rounded-full bg-yellow-600">Download CSV</a>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+</div>
+                    </div>
+                </main>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
