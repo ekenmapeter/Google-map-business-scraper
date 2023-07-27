@@ -34,4 +34,13 @@ python app.py
 https://github.com/amineboutarfi/google_maps_scraper
 
 ## Demo 
+Name: Admin
+Email: admin@admin.com
+Password: 123456
 
+## MySQL SETUP
+- create a new database 
+- import the "flask_google_map.sql" at the root of this folder to the MySQL section.
+
+
+Thats all.
