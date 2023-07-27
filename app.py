@@ -280,7 +280,7 @@ def main(search_for, city_country, total):
 
         # Update the csv_filepath to include the '.csv' extension
         csv_filepath += '.csv'
-        
+
         # Save information to the 'scraped_data' table in the database
         cursor = mysql.connection.cursor()
         timestamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -324,4 +324,4 @@ def user_dashboard():
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=5000)
